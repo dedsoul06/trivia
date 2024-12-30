@@ -34,12 +34,10 @@ body {
   color: white;
   font-size: 1em;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-#options button.selected {
-  background-color: #FFD700;
-  color: black;
+#options button:hover {
+  background-color: #45a049;
 }
 
 #next-button {
