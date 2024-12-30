@@ -1,103 +1,90 @@
-const questions = [
-  {
-    question: "What is the capital of France?",
-    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Paris_Eiffelturm.jpg",
-    options: ["Paris", "London", "Berlin", "Madrid"],
-    answer: 0
-  },
-  {
-    question: "Which planet is known as the Red Planet?",
-    image: "https://upload.wikimedia.org/wikipedia/commons/e/e4/Mars_PIA00407.jpg",
-    options: ["Earth", "Venus", "Mars", "Jupiter"],
-    answer: 2
-  },
-  {
-    question: "What is 5 + 3?",
-    image: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Math.jpg",
-    options: ["5", "8", "12", "15"],
-    answer: 1
-  },
-  {
-    question: "What is the fastest land animal?",
-    image: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Cheetah_on_the_edge_Luangwa_Valley.jpg",
-    options: ["Lion", "Cheetah", "Leopard", "Tiger"],
-    answer: 1
-  },
-  {
-    question: "Which is the largest ocean on Earth?",
-    image: "https://upload.wikimedia.org/wikipedia/commons/0/03/Blue_ocean_water.jpg",
-    options: ["Atlantic", "Indian", "Pacific", "Arctic"],
-    answer: 2
-  }
-];
-
-let currentQuestion = 0;
-let score = 0;
-
-function loadQuestion() {
-  const questionElement = document.getElementById("question");
-  const optionsContainer = document.getElementById("options");
-  const questionImage = document.getElementById("question-image");
-  const nextButton = document.getElementById("next-button");
-
-  nextButton.style.display = "none";
-  const current = questions[currentQuestion];
-  questionElement.textContent = current.question;
-  questionImage.src = current.image;
-  optionsContainer.innerHTML = "";
-
-  current.options.forEach((option, index) => {
-    const button = document.createElement("button");
-    button.textContent = option;
-    button.onclick = () => checkAnswer(index);
-    optionsContainer.appendChild(button);
-  });
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f7f7fc;
+  margin: 0;
+  padding: 20px;
 }
 
-function checkAnswer(selected) {
-  const correctAnswer = questions[currentQuestion].answer;
-  if (selected === correctAnswer) {
-    score++;
-  }
-  document.getElementById("next-button").style.display = "inline-block";
+#app {
+  max-width: 700px;
+  margin: auto;
 }
 
-function nextQuestion() {
-  currentQuestion++;
-  if (currentQuestion < questions.length) {
-    loadQuestion();
-  } else {
-    showResult();
-  }
+#question {
+  font-size: 1.8em;
+  margin: 20px 0;
 }
 
-function showResult() {
-  const quizContainer = document.getElementById("quiz-container");
-  const resultContainer = document.getElementById("result-container");
-  const resultScore = document.getElementById("result-score");
-  const resultTitle = document.getElementById("result-title");
-
-  quizContainer.style.display = "none";
-  resultContainer.style.display = "block";
-  resultScore.textContent = `You scored ${score}/${questions.length}`;
-
-  let title;
-  if (score === questions.length) {
-    title = "🏆 The Ultimate Trivia Champion!";
-  } else if (score >= questions.length / 2) {
-    title = "🎓 Trivia Enthusiast";
-  } else {
-    title = "🤔 The Curious Learner";
-  }
-  resultTitle.textContent = title;
+#question-image {
+  max-width: 100%;
+  height: auto;
+  margin: 20px 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-function restartQuiz() {
-  currentQuestion = 0;
-  score = 0;
-  document.getElementById("result-container").style.display = "none";
-  document.getElementById("quiz-container").style.display = "block";
-  loadQuestion();
+#options button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-loadQuestion();
+#options button.selected {
+  background-color: #FFD700;
+  color: black;
+}
+
+#next-button {
+  display: none;
+  padding: 10px 20px;
+  background-color: #008CBA;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+#next-button:hover {
+  background-color: #007B9E;
+}
+
+#result-container {
+  margin-top: 20px;
+}
+
+#restart-button {
+  padding: 10px 20px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+#restart-button:hover {
+  background-color: #d32f2f;
+}
+
+#result-title {
+  font-size: 2em;
+  font-weight: bold;
+  color: #ff5722;
+  animation: glow 1s infinite;
+}
+
+@keyframes glow {
+  0% { text-shadow: 0 0 5px #ff5722, 0 0 10px #ff5722; }
+  50% { text-shadow: 0 0 20px #ff5722, 0 0 30px #ff5722; }
+  100% { text-shadow: 0 0 5px #ff5722, 0 0 10px #ff5722; }
+}
